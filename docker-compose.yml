@@ -2,7 +2,6 @@ version: '2'
 services:
   db:
     image: mysql
-    #build: .
     container_name: www-mysqldb
     environment:
       MYSQL_DATABASE: login
@@ -14,31 +13,31 @@ services:
     restart: always
     ports:
       - 3306:3306
-  cache:
+  redis:
     image: redis:6.2-alpine
     restart: always
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning
-    #  --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes: 
-      - cache:/data
+      - redis:/data
   mongo:
     image: mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
-
-  # mongo-express:
-  #   image: mongo-express
-  #   restart: always
-  #   ports:
-  #     - 8081:8081
-  #   environment:
-  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
-  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
-  #     ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
 volumes:
-  cache:
+  redis:
     driver: local
