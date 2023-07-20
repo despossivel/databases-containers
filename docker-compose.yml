@@ -1,8 +1,8 @@
 version: '2'
 services:
-  db:
+  mysql:
     image: mysql
-    container_name: www-mysqldb
+    container_name: mysql
     environment:
       MYSQL_DATABASE: login
       MYSQL_USER: cockpit
@@ -14,6 +14,7 @@ services:
     ports:
       - 3306:3306
   redis:
+    container_name: redis
     image: redis:6.2-alpine
     restart: always
     ports:
@@ -22,18 +23,20 @@ services:
     volumes: 
       - redis:/data
   mongo:
+    container_name: mongo
     image: mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
   postgres:
+    container_name: postgres
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: root
     ports:
       - 5432:5432
     volumes:
