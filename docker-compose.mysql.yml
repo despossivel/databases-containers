@@ -1,0 +1,19 @@
+version: '2'
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: login
+      MYSQL_USER: cockpit
+      MYSQL_PASSWORD: x1ugOm71CraidpNs
+      MYSQL_ROOT_PASSWORD: x1ugOm71CraidpNs
+    volumes:
+      - ./mysql/:/var/lib/mysql/
+    restart: always
+    ports:
+      - 3306:3306
+
+volumes:
+  redis:
+    driver: local
